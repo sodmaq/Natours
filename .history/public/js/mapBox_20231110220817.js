@@ -1,1 +1,0 @@
-const loctations = JSON.parse(document.getElementById())

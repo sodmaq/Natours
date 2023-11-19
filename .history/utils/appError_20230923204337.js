@@ -1,1 +1,0 @@
-class appError extends Err
