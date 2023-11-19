@@ -28,15 +28,15 @@ export const logout = async () => {
       url: '/api/v1/users/logout',
     });
     if (res.data.status === 'success') {
-      // Navigate to the login page after a short delay 
+      // Navigate to the login page after a short delay
       setTimeout(() => {
         window.location.href = '/login'; // Adjust the login page URL
-      }, 500); // 500 milliseconds delay 
+      }, 500); // 500 milliseconds delay
 
       // Reload the page after a further delay
       setTimeout(() => {
         window.location.reload();
-      }, 500); // 500 milliseconds delay 
+      }, 500); // 500 milliseconds delay
     }
   } catch (err) {
     showAlert('error', 'Errro logging out, Try Again!');
