@@ -10,6 +10,7 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controller.js/errorController');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const cors = require('cors');
 
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -25,6 +26,13 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 // console.log(process.env.NODE_ENV);
 // 1) global middleware
+
+// IMPLEMENT CORS - SET "Access Control Allow Origin Header"
+app.use(cors());
+
+// Handle Non-simple requests(Options Requests)
+app.options('*', cors());
+// app.options('/api/v1/tours/:id', cors());
 //serving static files
 // app.use(express.static(`${__dirname}/public`));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -35,31 +43,31 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'", 'data:', 'blob:'],
- 
+
       baseUri: ["'self'"],
- 
+
       fontSrc: ["'self'", 'https:', 'data:'],
- 
+
       scriptSrc: ["'self'", 'https://*.cloudflare.com'],
- 
+
       scriptSrc: ["'self'", 'https://*.stripe.com'],
- 
+
       scriptSrc: ["'self'", 'http:', 'https://*.mapbox.com', 'data:'],
- 
+
       frameSrc: ["'self'", 'https://*.stripe.com'],
- 
+
       objectSrc: ["'none'"],
- 
+
       styleSrc: ["'self'", 'https:', 'unsafe-inline'],
- 
+
       workerSrc: ["'self'", 'data:', 'blob:'],
- 
+
       childSrc: ["'self'", 'blob:'],
- 
+
       imgSrc: ["'self'", 'data:', 'blob:'],
- 
+
       connectSrc: ["'self'", 'blob:', 'https://*.mapbox.com'],
- 
+
       upgradeInsecureRequests: [],
     },
   })
@@ -80,8 +88,8 @@ app.use('/api', limiter);
 
 //Body parse, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded())
-app.use(cookieParser())
+app.use(express.urlencoded());
+app.use(cookieParser());
 
 //Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
@@ -103,7 +111,7 @@ app.use(
 );
 
 //test middleware
-app.use(compression())
+app.use(compression());
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   // console.log(req.cookies)
@@ -128,7 +136,6 @@ app.all('*', (req, res, next) => {
 
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
 });
-
 
 app.use(globalErrorHandler);
 
