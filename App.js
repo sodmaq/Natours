@@ -18,6 +18,7 @@ const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 const bookingController = require('./controller.js/bookingController');
 const viewRouter = require('./routes/viewRoutes');
+const { webhookCheckout } = require('./controller.js/bookingController');
 // Start Express App
 const app = express();
 // Trust Proxy
