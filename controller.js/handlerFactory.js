@@ -35,7 +35,7 @@ exports.updateOne = (Model) =>
         data: doc,
       },
     });
-  });
+});
 
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
