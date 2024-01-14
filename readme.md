@@ -1,8 +1,7 @@
-# Express App Boilerplate
-
+# Tour Booking Express App
 ## Overview
 
-Express App Boilerplate is a template for building robust web applications using Node.js and Express.js. It comes pre-configured with essential middleware for security, logging, rate limiting, data sanitization, and more.
+Tour Booking Express App is a robust web application built with Node.js and Express.js for booking tours. It provides APIs for managing users, tours, reviews, and bookings, and also includes views for rendering dynamic web pages.
 
 ## Features
 
